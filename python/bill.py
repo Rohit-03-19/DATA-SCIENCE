@@ -5,7 +5,7 @@ while True:
     total = 0
 
     while True:
-        print(" enter the amount and quantity ")
+        print(" enter the amount and quantity: ")
         amount = float(input("enter the amount : "))
         quantity = float(input("enter the quantity : "))
         total += amount * quantity
