@@ -107,3 +107,29 @@ YouTube
 You will see:
 
 Lead captured successfully: Rohit, rohit@gmail.com, YouTube
+
+## 🏗️ Architecture Explanation
+
+LangGraph was chosen for this project because it is specifically designed for building stateful, multistep AI agents. Unlike basic chatbots, this agent must remember information across multiple turns, detect intent shifts, and trigger actions only when conditions are satisfied. LangGraph allows us to model the agent as a workflow with clear control over state and transitions.
+
+The system maintains an AgentState object that stores the user’s intent, name, email, and creator platform. This state persists across multiple conversation turns, enabling the agent to behave like a real sales assistant instead of a stateless chatbot.
+
+A Retrieval Augmented Generation (RAG) pipeline is implemented using a local JSON knowledge base that contains AutoStream’s pricing, features, and policies. Whenever a user asks about pricing or features, the agent retrieves the relevant information from this knowledge base and formats it into natural language responses.
+
+Tool execution is strictly controlled. The mock lead capture function is only triggered after all three required values (name, email, platform) are present in the state. This ensures realistic, production-style behavior similar to real SaaS lead automation systems.
+
+## 📲 How This Would Be Deployed on WhatsApp
+
+To deploy this agent on WhatsApp, a webhook-based integration can be used through Meta WhatsApp Cloud API or Twilio WhatsApp API.
+
+Each incoming WhatsApp message would be sent to a backend webhook. This webhook would:
+
+Extract the user’s phone number (used as a session ID)
+
+Load or create an AgentState for that user
+
+Pass the message to the agent
+
+Send the agent’s response back to WhatsApp
+
+The agent state can be stored in Redis or a database so that conversations remain consistent even if the server restarts. This allows thousands of WhatsApp users to interact with the AutoStream agent simultaneously while maintaining individual conversation memory.
