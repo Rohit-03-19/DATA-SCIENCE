@@ -73,10 +73,18 @@ Mac/Linux
 
 source venv/bin/activate
 
+```
+
 2️⃣ Install dependencies
+
+```bash
 pip install -r requirements.txt
 
+```
+
 3️⃣ Run the agent
+
+```bash
 python app.py
 
 
