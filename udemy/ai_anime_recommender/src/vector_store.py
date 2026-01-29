@@ -20,12 +20,11 @@ class VectorStoreBuilder:
         )
 
         data = loader.load()
-
         splitter = CharacterTextSplitter(chunk_size=1000,chunk_overlap=0)
         texts = splitter.split_documents(data)
 
         db = Chroma.from_documents(texts,self.embedding,persist_directory=self.persist_dir)
-        db.persist()
+        # db.persist()
 
     def load_vector_store(self):
         return Chroma(persist_directory=self.persist_dir,embedding_function=self.embedding)
